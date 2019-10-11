@@ -1,0 +1,59 @@
+create table employee(
+    employeeId int not NULL AUTO_INCREMENT primary key,
+    Fname varchar(20) not NULL,
+    Lname varchar(20) not NULL,
+    gender enum('M','F'),
+    DOB Date not NULL,
+    address varchar(100),
+    contact varchar(15) not NULL,
+    designation varchar(20) not NULL default 'Teacher'
+    email varchar(40) not NULL,
+);
+
+create table class(
+    classId int AUTO_INCREMENT primary key,
+    className varchar(20) not NULL,
+    classTeacherId int,
+    constraint foreign key (classTeacherId) references employee(employeeId) on delete set NULL on update cascade
+);
+
+create table subject(
+    subjectId int AUTO_INCREMENT primary key,
+    classId int not NULL,
+    subjectName varchar(20) not NULL,
+    teacherId int,
+    weightage int not NULL,
+    constraint foreign key (classId) references class(classId) on delete cascade on update cascade,
+    constraint foreign key (teacherId) references employee(employeeId) on delete set NULL on update cascade
+);
+
+create table exam(
+    examId int AUTO_INCREMENT primary key,
+    type enum('FA1','FA2','FA3','FA4','SA1','SA2'),
+    year int not NULL,
+    subjectId int not NULL,
+    constraint foreign key (subjectId) references subject(subjectId) on delete cascade on update cascade
+);
+
+create table student(
+    serialNumber int AUTO_INCREMENT primary key,
+    Fname varchar(20) not NULL,
+    Lname varchar(20) not NULL,
+    gender enum('M','F'),
+    DOB Date not NULL,
+    address varchar(100),
+    contact varchar(15) not NULL,
+    motherName varchar(20) not NULL,
+    fatherName varchar(20) not NULL,
+    classId int not NULL,
+    constraint foreign key (classId) references class(classId) on delete cascade on update cascade
+);
+
+create table result(
+    resultId int AUTO_INCREMENT primary key,
+    examId int not NULL,
+    serialNumber int not NULL,
+    obtainedMarks int not NULL,
+    constraint foreign key (examId) references exam(examId) on delete cascade on update cascade,
+    constraint foreign key (serialNumber) references student(serialNumber) on delete cascade on update cascade
+); 
