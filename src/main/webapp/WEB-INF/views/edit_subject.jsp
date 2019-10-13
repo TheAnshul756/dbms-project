@@ -4,25 +4,25 @@
 <html>
     <head>
         <title>
-            Class Details
+            Subject Details
         </title>
     </head>
     <body>
-        <h1>Class Details</h1>
-        <form id="myform" method="POST" action="/classes/${classId}/edit" >
-        <!-- <errors path="*" cssClass="errorblock" element="div" /> -->
+        <h1>Subject Details</h1>
+        <form method="POST" action="/subjects/${sub.getSubjectId()}/edit" >
+        <!-- <errors name="*" cssClass="errorblock" element="div" /> -->
         <table style="width: 50%">
             <tr>
-                <td>Class Name</td>
-                <td><input id="className" type="text" name="className" value="${cls.getClassName()}" /></td>
+                <td>Subject Name</td>
+                <td><input type="text" name="subjectName" value = "${sub.subjectName}"/></td>
             </tr>
             <tr>
-                <td>Class Teacher</td>
+                <td>Teacher</td>
                 <td>
-                    <select id="teacherId" name="classTeacherId">
+                    <select name="teacherId">
                         <c:forEach var="emp" items="${employees}">
                             <c:choose >
-                                <c:when test="${emp.getEmployeeId() == cls.getClassTeacherId()}">
+                                <c:when test="${emp.getEmployeeId() == sub.getTeacherId()}">
                                     <option value="${emp.getEmployeeId()}" selected>${emp.getFname()} ${emp.getLname()}</option>
                                 </c:when>
                                 <c:when test="${emp.getDesignation() == 'Teacher'}">
@@ -33,15 +33,13 @@
                     </select>
                 </td>
             </tr>
+            <tr>
+                <td>Weightage</td>
+                <td><input type="Number" name="weightage"  value = '${sub.getWeightage()}'/></td>
+            </tr>
         </table>
             <br>
-            <input type="submit" value="Update" />
+            <input type="submit" value="Submit" />
         </form>
     </body>
-    <script
-    src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-    crossorigin="anonymous"></script>
-    <script>
-    </script>
 </html>

@@ -14,7 +14,7 @@ public class ClassRowMapper implements RowMapper<Class>{
         Class e = new Class();
         e.setClassId(rs.getInt("classId"));
         e.setClassName(rs.getString("className"));
-        e.setClassTeacherID(rs.getInt("classTeacherId"));
+        e.setClassTeacherId(rs.getInt("classTeacherId"));
         return e;
     }
 }

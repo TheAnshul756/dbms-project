@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import com.school.work.models.Exam;
 
@@ -54,6 +55,12 @@ public class ExamDao{
     public void update(Exam exm){
         String sql = "update exam set type='" + exm.getType() + "', year=" + exm.getYear() + ", subjectId=" + exm.getSubjectId() + ", maximumMarks = " + exm.getMaximumMarks() + " where examId = " + exm.getExamId();
         template.update(sql);
+    }
+
+    public List<Exam> getAllExams() {
+        String sql="select * from exam";
+        return template.query(sql,
+        new ExamRowMapper());
     }
 
 }

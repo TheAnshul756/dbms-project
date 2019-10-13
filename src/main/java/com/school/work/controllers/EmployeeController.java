@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class EmployeeController{
@@ -54,6 +55,16 @@ public class EmployeeController{
         int id = empDao.save(employee);
         // int id=1;
         return "redirect:/employees/"+id;
+    }
+
+    @GetMapping("/employees/search")
+    public String employee_search(Model m){
+        return "search_employee";
+    }
+
+    @PostMapping("/employees/search")
+    public String employee_info(@RequestParam String employeeId, Model m){
+        return "redirect:/employees/" + employeeId;
     }
 
 }

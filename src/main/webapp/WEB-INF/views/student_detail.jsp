@@ -81,10 +81,6 @@
             <br>
             <input type="submit" value="Update" />
         </form:form>
-        <c:choose >
-            <c:when test="${student.getClassId() != 3}">
-                <h3> <a href="/students/${student.serialNumber}/results">Results</a></h3>
-            </c:when>
-        </c:choose>
+        <h3> <a href="/students/${student.serialNumber}/results">Results</a></h3>
     </body>
 </html>

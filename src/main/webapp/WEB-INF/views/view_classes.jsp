@@ -27,7 +27,7 @@
                               <td><a href="/employees/${emp.employeeId}">${emp.getFname()}&nbsp; ${emp.getLname()}</a></td>
                               <td><a href="/students/class/${cls.classId}">Students</a></td>
                               <td><a href="/subjects/${cls.classId}">Subjects</a></td>
-                              <td><a  href="/classes/${cls.classId}/edit">Edit(To Do)</a></td>
+                              <td><a  href="/classes/${cls.classId}/">Edit</a></td>
                           </tr>
                         </c:when>
                     </c:choose>

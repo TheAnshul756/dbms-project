@@ -25,7 +25,7 @@ public class Class{
         return this.classTeacherId;
     }
 
-    public void setClassTeacherID(int classTeacherId){
+    public void setClassTeacherId(int classTeacherId){
         this.classTeacherId = classTeacherId;
     }
     

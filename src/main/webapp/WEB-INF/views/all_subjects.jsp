@@ -16,21 +16,27 @@
                 <td>Teacher</td>
                 <td>weightage</td>
             </th>
-            <c:forEach varStatus = "i" var="sub" items="${subjects}">
+            <%! int i=0; %>
+            <c:forEach var="sub" items="${subjects}">
                 <c:forEach var="emp" items="${employees}">
                     <c:choose>
                         <c:when test="${sub.teacherId==emp.employeeId}">
                           <tr>
-                              <td>${i.index+1}</td>
-                              <td>${sub.getSubjectName()}</td>
-                              <td><a href="/employees/${emp.employeeId}">${emp.getFname()}&nbsp; ${emp.getLname()}</a></td>
-                              <td>${sub.getWeightage()}</td>
-                              <td><a  href="/subjects/${sub.classId}/edit">Edit(To Do)</a></td>
+                                <% i=i+1; %>
+                                <td><% out.println(i); %></td>
+                                <td>${sub.getSubjectName()}</td>
+                                <td><a href="/employees/${emp.employeeId}">${emp.getFname()}&nbsp; ${emp.getLname()}</a></td>
+                                <td>${sub.getWeightage()}</td>
+                                <td><a  href="/subjects/${sub.subjectId}/edit">Edit</a></td>
+                                <td><a href="/exams/${sub.subjectId}">Exams</a></td>
                           </tr>
                         </c:when>
                     </c:choose>
                 </c:forEach>
             </c:forEach>
+            <% i = 0; %>
         </table>
+        <br>
+        &emsp;<a href="/subjects/${classId}/new"><button>Add Subject</button></a>
     </body>
 </html>

@@ -32,7 +32,7 @@ public class ClassDao{
         String sql = "select * from class where classId=?";
         return template.queryForObject(sql,
         new Object[]{classId},
-        new BeanPropertyRowMapper<Class>(Class.class));
+        new ClassRowMapper());
     }
 
     public int save(Class cls){

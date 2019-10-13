@@ -56,7 +56,7 @@ public class StudentController{
 
 
     @GetMapping("/students/search")
-    public String search(Model m){
+    public String student_search(Model m){
         return "search_student";
     }
 

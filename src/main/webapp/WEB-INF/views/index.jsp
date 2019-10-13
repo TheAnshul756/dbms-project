@@ -13,5 +13,7 @@
         <a href="/students/search">Search student with Serial Number</a>
         <br>
         <a href="/classes">All Classes</a>
+        <br>
+        <a href="/employees/search">Search employee with Employee ID</a>
     </body>
 </html>

@@ -111,7 +111,7 @@
                                         <td><% out.println(i); %></td>
                                         <td>${sub.get('className')}</td>
                                         <td>${sub.get('subjectName')}</td>
-                                        <td><a href="/classes/${sub.get('classId')}/edit">Edit</a></td>
+                                        <td><a href="/classes/${sub.get('classId')}">Edit</a></td>
                                         <c:forEach var="cls" items="${classes}">
                                             <c:choose>
                                                 <c:when test="${cls.getClassId()==sub.get('classId') && cls.getClassTeacherId() == employee.getEmployeeId()}">
@@ -123,6 +123,7 @@
                                 </c:when>
                             </c:choose>
                         </c:forEach>
+                        <% i = 0; %>
                     </table>
             </c:when>
         </c:choose>

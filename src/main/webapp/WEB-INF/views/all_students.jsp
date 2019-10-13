@@ -22,4 +22,6 @@
             </c:forEach>
         </table>
     </body>
+    <br>
+    &emsp;<a href="/students/new"><button>Add Student</button></a>
 </html>
