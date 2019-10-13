@@ -13,6 +13,10 @@
         <form:errors path="*" cssClass="errorblock" element="div" />
         <table style="width: 50%">
             <tr>
+                <td>Serial Number</td>
+                <td>${student.serialNumber}</td>
+            </tr>
+            <tr>
                 <td>First Name</td>
                 <td><form:input type="text" path="Fname" value="${student.getFname()}" /></td>
             </tr>
@@ -79,7 +83,7 @@
         </form:form>
         <c:choose >
             <c:when test="${student.getClassId() != 3}">
-                <h3> <a href="/students/${student.serialNumber}/results">Results(To Do)</a></h3>
+                <h3> <a href="/students/${student.serialNumber}/results">Results</a></h3>
             </c:when>
         </c:choose>
     </body>

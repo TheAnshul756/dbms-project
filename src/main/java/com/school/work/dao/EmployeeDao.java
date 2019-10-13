@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import com.school.work.models.Employee;
 
@@ -69,6 +70,12 @@ public class EmployeeDao{
         emp.getEmail() +  "' where employeeId = " + emp.getEmployeeId();
         System.out.println(sql);
         template.update(sql);
+    }
+
+    public List<Employee > getAllEmployees(){
+        String sql="select * from employee";
+        return template.query(sql,
+        new EmployeeRowMapper());
     }
 
 }

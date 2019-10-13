@@ -34,8 +34,8 @@ public class ExamDao{
     }
 
     public int save(Exam exm){
-        String sql = "insert into exam (type,year,subjectId) values ('" + exm.getType() + "'," + exm.getYear() 
-        + "," + exm.getSubjectId() + ")";
+        String sql = "insert into exam (type,year,subjectId,maximumMarks) values ('" + exm.getType() + "'," + exm.getYear() 
+        + "," + exm.getSubjectId() + "," + exm.getMaximumMarks() + ")";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(
@@ -52,7 +52,7 @@ public class ExamDao{
     }
 
     public void update(Exam exm){
-        String sql = "update exam set type='" + exm.getType() + "', year=" + exm.getYear() + ", subjectId=" + exm.getSubjectId() + " where examId = " + exm.getExamId();
+        String sql = "update exam set type='" + exm.getType() + "', year=" + exm.getYear() + ", subjectId=" + exm.getSubjectId() + ", maximumMarks = " + exm.getMaximumMarks() + " where examId = " + exm.getExamId();
         template.update(sql);
     }
 

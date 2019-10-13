@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Map;
 
 import com.school.work.models.Student;
 
@@ -65,6 +67,24 @@ public class StudentDao{
         "', address='" + std.getAddress() + "', contact='" + std.getContact() + "',DOB='" + date + "', motherName='" + std.getMotherName() + "', fatherName='" +
         std.getFatherName() + "', classId="+ std.getClassId() + " where serialNumber = " + std.getSerialNumber();
         template.update(sql);
+    }
+
+    public List<Map<String,Object> > getResultsbySerialNumber(int serialNumber){
+        String sql="select a.type as type, a.year as year, a.subjectId as subjectId, a.maximumMarks as maximumMarks, b.obtainedmarks as obtainedMarks from exam as a, result as b  where a.examId = b.examId and b.serialNumber=? order by year DESC,type ASC";
+        return this.template.queryForList(sql, new Object[]{serialNumber});
+    }
+
+    public List<Student > getAllStudents(){
+        String sql="select * from student";
+        return template.query(sql,
+        new StudentRowMapper());
+    }
+
+    public List<Student > getAllStudentsInClass(int classId){
+        String sql="select * from student where classId=?";
+        return template.query(sql,
+        new Object[]{classId},
+        new StudentRowMapper());
     }
 
 }

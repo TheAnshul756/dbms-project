@@ -1,6 +1,7 @@
 package com.school.work.controllers;
 
 import com.school.work.models.Employee;
+import com.school.work.dao.ClassDao;
 import com.school.work.dao.EmployeeDao;
 import com.school.work.dao.SubjectDao;
 
@@ -21,9 +22,15 @@ public class EmployeeController{
     @Autowired
     SubjectDao subDao;
 
+    @Autowired
+    ClassDao clsDao;
+
+
     @GetMapping("/employees/{id}")
     public String employee_detail (@PathVariable int id, Model m){
         m.addAttribute("employee", empDao.getEmployeeByEmployeeId(id));
+        m.addAttribute("subjects",clsDao.getAllSubjects());
+        m.addAttribute("classes",clsDao.getAllClasses());
         return "employee_detail";
     }
 

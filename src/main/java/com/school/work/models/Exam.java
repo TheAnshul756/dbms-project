@@ -4,6 +4,7 @@ public class Exam{
     private int examId;
     private String type;
     private int year;
+    private int maximumMarks;
     private int subjectId;
 
     public int getExamId(){
@@ -28,6 +29,14 @@ public class Exam{
 
     public void setYear(int year){
         this.year = year;
+    }
+
+    public int getMaximumMarks(){
+        return this.maximumMarks;
+    }
+
+    public void setMaximumMarks(int maximumMarks){
+        this.maximumMarks = maximumMarks;
     }
     
     public int getSubjectId(){

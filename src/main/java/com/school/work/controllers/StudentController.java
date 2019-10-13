@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class StudentController{
@@ -52,11 +54,28 @@ public class StudentController{
         return "redirect:/students/"+serialNumber;
     }
 
+
     @GetMapping("/students/search")
-    public String student_new(Model m){
-        m.addAttribute("student",new Student());
-        m.addAttribute("classes", clsDao.getAllClasses());
-        return "new_student";
+    public String search(Model m){
+        return "search_student";
+    }
+
+    @PostMapping("/students/search")
+    public String student_info(@RequestParam String serialNumber, Model m){
+        return "redirect:/students/"+serialNumber;
+    }
+
+    @GetMapping("/students/{serialNumber}/results")
+    public String student_result(@PathVariable int serialNumber, Model m){
+        m.addAttribute("result", stuDao.getResultsbySerialNumber(serialNumber));
+        m.addAttribute("subjects", clsDao.getAllSubjects());
+        return "student_result";
+    }
+    
+    @GetMapping("/students/class/{classId}")
+    public String all_clas_students(@PathVariable int classId,Model m){
+        m.addAttribute("students", stuDao.getAllStudentsInClass(classId));
+        return "all_students";
     }
 
 }

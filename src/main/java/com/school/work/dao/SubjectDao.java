@@ -62,5 +62,12 @@ public class SubjectDao{
         return template.query(sql,
         new SubjectRowMapper());
     }
+    
+    public List<Subject > getAllSubjectsInClass(int classId){
+        String sql="select * from subject where classId=?";
+        return template.query(sql,
+        new Object[]{classId},
+        new SubjectRowMapper());
+    }
 
 }

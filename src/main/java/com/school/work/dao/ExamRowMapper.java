@@ -15,6 +15,7 @@ public class ExamRowMapper implements RowMapper<Exam>{
         e.setExamId(rs.getInt("examId"));
         e.setType(rs.getString("type"));
         e.setYear(rs.getInt("year"));
+        e.setMaximumMarks(rs.getInt("maximumMarks"));
         e.setSubjectId(rs.getInt("subjectId"));
         return e;
     }

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Map;
 
 import com.school.work.models.Class;
 
@@ -61,5 +62,11 @@ public class ClassDao{
         return template.query(sql,
         new ClassRowMapper());
     }
+
+    public List<Map<String,Object> > getAllSubjects(){
+        String sql="select a.classId as classId,a.className as className,b.subjectId as subjectId,b.subjectname as subjectName,b.weightage as weightage,b.teacherId as teacherId from class as a,subject as b where  b.classId =  a.classId";
+        return this.template.queryForList(sql);
+    }
+    
 
 }

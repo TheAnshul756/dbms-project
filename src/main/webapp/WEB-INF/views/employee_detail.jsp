@@ -13,6 +13,10 @@
         <form:errors path="*" cssClass="errorblock" element="div" />
         <table style="width: 50%">
             <tr>
+                <td>Employee ID</td>
+                <td>${employee.employeeId}</td>
+            </tr>
+            <tr>
                 <td>First Name</td>
                 <td><form:input type="text" path="Fname" value="${employee.getFname()}" /></td>
             </tr>
@@ -91,6 +95,35 @@
         <c:choose >
             <c:when test="${employee.getDesignation()=='Teacher'}">
                     <!-- Class taught by Teacher Link -->
+                    <h2>Teaching Details</h2>
+                    <table style="width: 50%">
+                        <th>
+                            <td>Class</td>
+                            <td>Subject</td>
+                            <td></td>
+                        </th>
+                        <%! int i=0; %>
+                        <c:forEach var="sub" items="${subjects}">
+                            <c:choose>
+                                <c:when test="${sub.get('teacherId')==employee.employeeId}">
+                                    <tr>
+                                        <% i=i+1; %>
+                                        <td><% out.println(i); %></td>
+                                        <td>${sub.get('className')}</td>
+                                        <td>${sub.get('subjectName')}</td>
+                                        <td><a href="/classes/${sub.get('classId')}/edit">Edit</a></td>
+                                        <c:forEach var="cls" items="${classes}">
+                                            <c:choose>
+                                                <c:when test="${cls.getClassId()==sub.get('classId') && cls.getClassTeacherId() == employee.getEmployeeId()}">
+                                                    <td>[Class Teacher]</td>
+                                                </c:when>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </tr>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>
+                    </table>
             </c:when>
         </c:choose>
     </body>
