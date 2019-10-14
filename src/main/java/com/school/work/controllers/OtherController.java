@@ -3,9 +3,11 @@ package com.school.work.controllers;
 import com.school.work.dao.ClassDao;
 import com.school.work.dao.EmployeeDao;
 import com.school.work.dao.ExamDao;
+import com.school.work.dao.ResultDao;
 import com.school.work.dao.SubjectDao;
 import com.school.work.models.Class;
 import com.school.work.models.Exam;
+import com.school.work.dao.StudentDao;
 import com.school.work.models.Subject;
 
 
@@ -32,6 +34,12 @@ public class OtherController{
 
     @Autowired
     ExamDao exmDao;
+
+    @Autowired
+    StudentDao stuDao;
+
+    @Autowired
+    ResultDao rsltDao;
 
     @GetMapping("/classes")
     public String all_classes (Model m){
@@ -170,5 +178,15 @@ public class OtherController{
         exmDao.save(exm);
         return "redirect:/exams/"+subjectId;
     }
+
+    // @GetMapping("/results/class/{examId}")
+    // public String class_exam(@PathVariable int examId,  Model m){
+    //     m.addAttribute("students", stuDao.getAllStudents());
+    //     System.out.println("hello");
+    //     System.out.println(subDao.getSubjectBySubjectId(exmDao.getExamByExamId(examId).getSubjectId()).getClassId());
+    //     m.addAttribute("classID", subDao.getSubjectBySubjectId(exmDao.getExamByExamId(examId).getSubjectId()).getClassId());
+    //     m.addAttribute("results", rsltDao.getAllResults());
+    //     return "redirect";
+    // }
 
 }

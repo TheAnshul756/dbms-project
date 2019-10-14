@@ -92,5 +92,9 @@ public class Student{
     public void setClassId(int classId){
         this.classId = classId;
     }
+
+	public Object getAllStudents() {
+		return null;
+	}
     
 }

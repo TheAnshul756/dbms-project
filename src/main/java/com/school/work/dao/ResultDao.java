@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import com.school.work.models.Result;
 
@@ -56,5 +57,12 @@ public class ResultDao{
         rslt.getObtainedMarks() + " where resultId = " + rslt.getResultId();
         template.update(sql);
     }
+
+    public List<Result> getAllResults() {
+        String sql="select * from result";
+        return template.query(sql,
+        new ResultRowMapper());
+    }
+
 
 }

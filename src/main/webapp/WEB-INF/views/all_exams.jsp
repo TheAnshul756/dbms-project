@@ -27,7 +27,7 @@
                             <td>${exm.getYear()}</td>
                             <td>${exm.getMaximumMarks()}</td>
                             <td><a href="/exams/${exm.getExamId()}/edit"> Edit</a></td>
-                            <td><a href="/results/class/${exm.getExamId()}/"> Add results (To Do)</a></td>
+                            <!-- <td><a href="/results/class/${exm.getExamId()}/"> Add results (To Do)</a></td> -->
                         </tr>
                     </c:when>
                 </c:choose>
