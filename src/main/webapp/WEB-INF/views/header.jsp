@@ -77,23 +77,19 @@
       </div>
       <div id="content">
         <!-- insert the page content here -->
-        <h1><a href ="/classes">Classes</a> / <a href ="/subjects/${classId}">Subjects</a> / Add Subject</h1>
-        <form action="/subjects/${classId}/new" method="POST">
+        <h1><a href ="/classes/">Classes</a> / <a href ="/subjects/${classId}/">Subjects</a> / <a href ="/exams/${subjectID}/">Exams</a> / Exam Details</h1>
+        <form action="/exams/${subjectId}/new" method="POST">
           <div class="form_settings">
-            <p><span>Subject Name</span><input type="text" name="subjectName" path="" value="${sub.subjectName}" /></p>
-            <p><span>Teacher</span> <select name="teacherId">
-                <c:forEach var="emp" items="${employees}">
-                    <c:choose >
-                        <c:when test="${emp.getEmployeeId() == sub.getTeacherId()}">
-                            <option value="${emp.getEmployeeId()}" selected>${emp.getFname()} ${emp.getLname()}</option>
-                        </c:when>
-                        <c:when test="${emp.getDesignation() == 'Teacher'}">
-                            <option value="${emp.getEmployeeId()}" >${emp.getFname()} ${emp.getLname()}</option>
-                        </c:when>
-                    </c:choose>
-                </c:forEach>
-            </select></p>
-            <p><span>Weightage</span><input type="Number" name="weightage" path="" value="${sub.getWeightage()}" /></p>
+            <p><span>Type</span><select name="type">
+                <option value="FA1" selected>FA1</option>
+                <option value="FA2" >FA2</option>
+                <option value="FA3" >FA3</option>
+                <option value="FA4" >FA4</option>
+                <option value="SA1" >SA1</option>
+                <option value="SA2" >SA2</option>
+                </select></p>
+            <p><span>Year</span><input type="Number" name="year" value="" /></p>
+            <p><span>Maximum Marks</span><input type="Number" name="maximumMarks" value="" /></p>
             <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" value="update" path="" /></p>
           </div>
         </form>

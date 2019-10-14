@@ -117,6 +117,7 @@ public class OtherController{
     public String subject_detail(@PathVariable int subjectId,  Model m){
         m.addAttribute("sub", subDao.getSubjectBySubjectId(subjectId));
         m.addAttribute("employees", empDao.getAllEmployees());
+        m.addAttribute("classId",subDao.getSubjectBySubjectId(subjectId).getClassId());
         return "edit_subject";
     }
 
@@ -144,6 +145,7 @@ public class OtherController{
     @GetMapping("/exams/{examId}/edit")
     public String exam_detail(@PathVariable int examId,  Model m){
         m.addAttribute("exm", exmDao.getExamByExamId(examId));
+        m.addAttribute("classId", subDao.getSubjectBySubjectId(exmDao.getExamByExamId(examId).getSubjectId()).getClassId());
         return "edit_exam";
     }
 
@@ -163,6 +165,7 @@ public class OtherController{
     @GetMapping("/exams/{subjectId}/new")
     public String new_exam(@PathVariable int subjectId,  Model m){
         m.addAttribute("subjectId", subjectId);
+        m.addAttribute("classId",subDao.getSubjectBySubjectId(subjectId).getClassId());
         return "new_exam";
     }
 

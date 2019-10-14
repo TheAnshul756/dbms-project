@@ -27,6 +27,8 @@ public class StudentController{
     public String student_detail (@PathVariable int serialNumber, Model m){
         m.addAttribute("student", stuDao.getStudentBySerialNumber(serialNumber));
         m.addAttribute("classes", clsDao.getAllClasses());
+        m.addAttribute("result", stuDao.getResultsbySerialNumber(serialNumber));
+        m.addAttribute("subjects", clsDao.getAllSubjects());
         return "student_detail";
     }
 
@@ -34,6 +36,7 @@ public class StudentController{
     public String student_update(@ModelAttribute Student student, @PathVariable int serialNumber, Model m) {
         student.setSerialNumber(serialNumber);
         // System.out.println(student.getDOB());
+       
         stuDao.update(student);
         return "redirect:/students/"+student.getSerialNumber();
     }
@@ -65,12 +68,12 @@ public class StudentController{
         return "redirect:/students/"+serialNumber;
     }
 
-    @GetMapping("/students/{serialNumber}/results")
-    public String student_result(@PathVariable int serialNumber, Model m){
-        m.addAttribute("result", stuDao.getResultsbySerialNumber(serialNumber));
-        m.addAttribute("subjects", clsDao.getAllSubjects());
-        return "student_result";
-    }
+    // @GetMapping("/students/{serialNumber}/results")
+    // public String student_result(@PathVariable int serialNumber, Model m){
+    //     m.addAttribute("result", stuDao.getResultsbySerialNumber(serialNumber));
+    //     m.addAttribute("subjects", clsDao.getAllSubjects());
+    //     return "student_result";
+    // }
     
     @GetMapping("/students/class/{classId}")
     public String all_clas_students(@PathVariable int classId,Model m){
