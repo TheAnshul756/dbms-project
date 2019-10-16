@@ -5,10 +5,6 @@
 // import java.util.Map;
 // import java.util.Set;
 
-// import com.school.work.dao.EmployeeDao;
-// import com.school.work.dao.UserinfoDao;
-// import com.school.work.models.Userinfo;
-
 // import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.jdbc.core.JdbcTemplate;
 // import org.springframework.security.core.GrantedAuthority;
@@ -26,17 +22,11 @@
 //     @Autowired
 //     JdbcTemplate jdbcTemplate;
 
-//     @Autowired
-//     UserinfoDao userDao;
-
-//     @Autowired
-//     EmployeeDao empDao;
-
 //     @Override
 //     @Transactional(readOnly = true)
 //     public UserDetails loadUserByUsername(String username) {
 //         System.out.print(username);
-//         List<Map<String, Object>> roles=jdbcTemplate.queryForList("select designation from employee where employeeID=?", empDao.getEmployeeByEmployeeId(userDao.getUserinfoByUserName(username).getEmployeeId()).getDesignation());
+//         List<Map<String, Object>> roles=jdbcTemplate.queryForList("select role from employee where username=?",username);
         
 //         if (roles.isEmpty()) throw new UsernameNotFoundException(username);
 //         // System.out.print(username);

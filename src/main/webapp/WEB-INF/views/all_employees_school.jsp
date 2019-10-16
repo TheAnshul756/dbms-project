@@ -45,7 +45,7 @@
                 <tr>
                     <td>${i.index+1}</td>
                     <td>${emp.getEmployeeId()}</td>
-                    <td><a href="/empoyees/${emp.getEmployeeId()}">${emp.getFname()} &nbsp;${emp.getLname()}</a></td>
+                    <td><a href="/employees/${emp.getEmployeeId()}">${emp.getFname()} &nbsp;${emp.getLname()}</a></td>
                     <td>${emp.getDesignation()}</td>
                 </tr>
             </c:forEach>

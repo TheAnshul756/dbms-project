@@ -65,3 +65,10 @@ create table userinfo(
     employeeId int not NULL,
     constraint foreign key (employeeId) references employee(employeeId) on delete cascade on update cascade
 );
+
+create table roles(
+    role_id int AUTO_INCREMENT primary key,
+    username varchar(25) primary key,
+    role varchar(25) not NULL,
+    constraint foreign key (username) references userinfo(username) on delete cascade on update cascade
+);
