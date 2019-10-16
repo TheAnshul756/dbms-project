@@ -31,8 +31,17 @@ public class ResultDao{
         String sql = "select * from result where resultId=?";
         return template.queryForObject(sql,
         new Object[]{resultId},
-        new BeanPropertyRowMapper<Result>(Result.class));
+        new ResultRowMapper());
     }
+
+    public Result getResultBySerialNumberExamId(int examId, int serialNumber){
+        String sql = "select * from result where examId=? and serialNumber=?";
+        return template.queryForObject(sql,
+        new Object[]{examId,serialNumber},
+        new ResultRowMapper());
+    }
+
+
 
     public int save(Result rslt){
         String sql = "insert into result (examId,serialNumber,obtainedMarks) values (" + rslt.getExamId() + "," + rslt.getSerialNumber() + 

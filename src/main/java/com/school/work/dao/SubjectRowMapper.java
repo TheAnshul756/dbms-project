@@ -15,7 +15,7 @@ public class SubjectRowMapper implements RowMapper<Subject>{
         e.setSubjectId(rs.getInt("subjectId"));
         e.setClassId(rs.getInt("classId"));
         e.setSubjectName(rs.getString("subjectName"));
-        e.setTeacherID(rs.getInt("teacherId"));
+        e.setTeacherId(rs.getInt("teacherId"));
         e.setWeightage(rs.getInt("weightage"));
         return e;
     }

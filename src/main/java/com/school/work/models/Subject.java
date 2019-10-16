@@ -35,7 +35,7 @@ public class Subject{
         return this.teacherId;
     }
 
-    public void setTeacherID(int teacherId){
+    public void setTeacherId(int teacherId){
         this.teacherId = teacherId;
     }
     

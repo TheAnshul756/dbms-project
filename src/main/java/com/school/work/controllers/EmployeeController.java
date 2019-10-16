@@ -57,14 +57,21 @@ public class EmployeeController{
         return "redirect:/employees/"+id;
     }
 
-    @GetMapping("/employees/search")
-    public String employee_search(Model m){
-        return "search_employee";
-    }
+    // @GetMapping("/employees/search")
+    // public String employee_search(Model m){
+    //     return "search_employee";
+    // }
 
     @PostMapping("/employees/search")
     public String employee_info(@RequestParam String employeeId, Model m){
         return "redirect:/employees/" + employeeId;
+    }
+
+    @GetMapping("/employees")
+    public String all_all_employees(Model m){
+        m.addAttribute("employees", empDao.getAllEmployees());
+        // m.addAttribute("classes", clsDao.getAllClasses());
+        return "all_employees_school";
     }
 
 }

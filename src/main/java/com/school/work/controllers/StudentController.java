@@ -58,10 +58,10 @@ public class StudentController{
     }
 
 
-    @GetMapping("/students/search")
-    public String student_search(Model m){
-        return "search_student";
-    }
+    // @GetMapping("/students/search")
+    // public String student_search(Model m){
+    //     return "search_student";
+    // }
 
     @PostMapping("/students/search")
     public String student_info(@RequestParam String serialNumber, Model m){
@@ -79,6 +79,13 @@ public class StudentController{
     public String all_clas_students(@PathVariable int classId,Model m){
         m.addAttribute("students", stuDao.getAllStudentsInClass(classId));
         return "all_students";
+    }
+
+    @GetMapping("/students")
+    public String all_all_students(Model m){
+        m.addAttribute("students", stuDao.getAllStudents());
+        m.addAttribute("classes", clsDao.getAllClasses());
+        return "all_students_school";
     }
 
 }

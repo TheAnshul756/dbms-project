@@ -7,6 +7,7 @@ import com.school.work.dao.ResultDao;
 import com.school.work.dao.SubjectDao;
 import com.school.work.models.Class;
 import com.school.work.models.Exam;
+import com.school.work.models.Result;
 import com.school.work.dao.StudentDao;
 import com.school.work.models.Subject;
 
@@ -60,6 +61,7 @@ public class OtherController{
     public String class_detail(@PathVariable int classId,  Model m){
         m.addAttribute("cls", clsDao.getClassByClassId(classId));
         m.addAttribute("employees", empDao.getAllEmployees());
+        m.addAttribute("subjects", subDao.getAllSubjectsInClass(classId));
         return "edit_class";
     }
 
@@ -103,7 +105,7 @@ public class OtherController{
     public String subject_add(@RequestParam int teacherId, @RequestParam String subjectName,@RequestParam int weightage, @PathVariable int classId, Model m){
         Subject sub = new Subject();
         sub.setSubjectName(subjectName);
-        sub.setTeacherID(teacherId);
+        sub.setTeacherId(teacherId);
         sub.setWeightage(weightage);
         // System.out.println(sub.getTeacherId());
         // int serialNumber=1;
@@ -125,7 +127,7 @@ public class OtherController{
     public String subject_update(@RequestParam int teacherId, @RequestParam String subjectName,@RequestParam int weightage, @PathVariable int subjectId, Model m){
         Subject sub = subDao.getSubjectBySubjectId(subjectId);
         sub.setSubjectName(subjectName);
-        sub.setTeacherID(teacherId);
+        sub.setTeacherId(teacherId);
         sub.setWeightage(weightage);
         // System.out.println(sub.getTeacherId());
         // int serialNumber=;
@@ -182,14 +184,36 @@ public class OtherController{
         return "redirect:/exams/"+subjectId;
     }
 
-    // @GetMapping("/results/class/{examId}")
-    // public String class_exam(@PathVariable int examId,  Model m){
-    //     m.addAttribute("students", stuDao.getAllStudents());
-    //     System.out.println("hello");
-    //     System.out.println(subDao.getSubjectBySubjectId(exmDao.getExamByExamId(examId).getSubjectId()).getClassId());
-    //     m.addAttribute("classID", subDao.getSubjectBySubjectId(exmDao.getExamByExamId(examId).getSubjectId()).getClassId());
-    //     m.addAttribute("results", rsltDao.getAllResults());
-    //     return "redirect";
-    // }
+
+
+    @GetMapping("/results/class/{examId}")
+    public String class_exam(@PathVariable int examId,  Model m){
+        int classId = subDao.getSubjectBySubjectId(exmDao.getExamByExamId(examId).getSubjectId()).getClassId();
+        m.addAttribute("subjectId", exmDao.getExamByExamId(examId).getSubjectId());
+        m.addAttribute("classId", classId);
+        m.addAttribute("maximumMarks", exmDao.getExamByExamId(examId).getMaximumMarks());
+        m.addAttribute("results", rsltDao.getAllResults());
+        m.addAttribute("students",stuDao.getAllStudentsInClass(classId));
+        m.addAttribute("examId", examId);
+        return "class_exam";
+    }
+
+    @PostMapping("/results/class/{examId}/{serialNumber}/new")
+    public String new_result_class(@RequestParam int obtainedMarks,@PathVariable int examId, @PathVariable int serialNumber, Model m){
+        Result result = new Result();
+        result.setExamId(examId);
+        result.setSerialNumber(serialNumber);
+        result.setObtainedMarks(obtainedMarks);
+        rsltDao.save(result);
+        return "redirect:/results/class/"+examId;
+    }
+
+    @PostMapping("/results/class/{examId}/{serialNumber}/edit")
+    public String update_result_class(@RequestParam int obtainedMarks,@PathVariable int examId, @PathVariable int serialNumber, Model m){
+        Result result = rsltDao.getResultBySerialNumberExamId(examId,serialNumber);
+        result.setObtainedMarks(obtainedMarks);
+        rsltDao.update(result);
+        return "redirect:/results/class/"+examId;
+    }
 
 }
