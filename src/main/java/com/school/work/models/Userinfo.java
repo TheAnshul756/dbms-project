@@ -4,6 +4,7 @@ public class Userinfo{
     private String username;
     private String password;
     private int employeeId;
+    private String role;
 
     public String getUserName(){
         return this.username;
@@ -27,6 +28,14 @@ public class Userinfo{
 
     public void setEmployeeId(int employeeId){
         this.employeeId = employeeId;
+    }
+
+    public String getRole(){
+        return this.role;
+    }
+
+    public void setRole(String role){
+        this.role = role;
     }
     
 }

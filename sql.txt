@@ -61,14 +61,8 @@ create table result(
 
 create table userinfo(
     username varchar(25) primary key,
-    password varchar(40) not NULL,
+    password varchar(255) not NULL,
     employeeId int not NULL,
+    role enum('ROLE_ADMIN','ROLE_EMPLOYEE','NONE') not NULL,
     constraint foreign key (employeeId) references employee(employeeId) on delete cascade on update cascade
-);
-
-create table roles(
-    role_id int AUTO_INCREMENT primary key,
-    username varchar(25) primary key,
-    role varchar(25) not NULL,
-    constraint foreign key (username) references userinfo(username) on delete cascade on update cascade
 );

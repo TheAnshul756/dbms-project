@@ -20,7 +20,14 @@
           <li><a href="examples.html">Examples</a></li>
           <li><a href="page.html">A Page</a></li>
           <li class="selected"><a href="another_page.html">Another Page</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
+          <c:choose>
+            <c:when test="${pageContext.request.userPrincipal.name != null}">
+              <li><a href="/logout">Log Out ( ${pageContext.request.userPrincipal.name} )</a></li>
+            </c:when>
+            <c:otherwise>
+              <li><a href="/login">Log In</a></li>
+            </c:otherwise>
+          </c:choose>
         </ul>
       </div>
     </div>

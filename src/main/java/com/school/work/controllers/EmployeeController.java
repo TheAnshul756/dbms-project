@@ -1,22 +1,23 @@
 package com.school.work.controllers;
 
-import com.school.work.models.Employee;
 import com.school.work.dao.ClassDao;
 import com.school.work.dao.EmployeeDao;
 import com.school.work.dao.SubjectDao;
+import com.school.work.dao.UserinfoDao;
+import com.school.work.models.Employee;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class EmployeeController{
-    
+public class EmployeeController {
+
     @Autowired
     EmployeeDao empDao;
 
@@ -26,12 +27,16 @@ public class EmployeeController{
     @Autowired
     ClassDao clsDao;
 
+    @Autowired
+    UserinfoDao userDao;
+
 
     @GetMapping("/employees/{id}")
     public String employee_detail (@PathVariable int id, Model m){
         m.addAttribute("employee", empDao.getEmployeeByEmployeeId(id));
         m.addAttribute("subjects",clsDao.getAllSubjects());
         m.addAttribute("classes",clsDao.getAllClasses());
+        m.addAttribute("userinfo",userDao.getAllUserinfo());
         return "employee_detail";
     }
 
@@ -64,6 +69,12 @@ public class EmployeeController{
 
     @PostMapping("/employees/search")
     public String employee_info(@RequestParam String employeeId, Model m){
+        if(!empDao.isEmployeeIdPresent(employeeId))
+        {
+            String msg = "Employee Id does not exit!!!";
+            m.addAttribute("msg", msg);
+            return "error_page";
+        }
         return "redirect:/employees/" + employeeId;
     }
 

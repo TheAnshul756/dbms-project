@@ -1,20 +1,11 @@
 package com.school.work.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
-import java.util.Map;
 
 import com.school.work.models.Userinfo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +28,7 @@ public class UserinfoDao{
 
 
     public String save(Userinfo cls){
-        String sql = "insert into userinfo (username,password,employeeId) values ('" + cls.getUserName() + "','" + cls.getPassword() + "'," + cls.getEmployeeId() + ")";
+        String sql = "insert into userinfo (username,password,employeeId,role) values ('" + cls.getUserName() + "','" + cls.getPassword() + "'," + cls.getEmployeeId() + ",'" + cls.getRole() + "')";
 
         // KeyHolder keyHolder = new GeneratedKeyHolder();
         // template.update(
@@ -56,8 +47,27 @@ public class UserinfoDao{
     }
 
     public void update(Userinfo cls, String prevUserName){
-        String sql = "update userinfo set username = '" + cls.getUserName() + "',password='" + cls.getPassword() + "',employeeId = " + cls.getEmployeeId()  + " where username = " + prevUserName;
+        String sql = "update userinfo set username = '" + cls.getUserName() + "',password='" + cls.getPassword() + "',employeeId = " + cls.getEmployeeId()  + ",role = '" + cls.getRole() + "' where username = '" + prevUserName+"'";
         template.update(sql);
+    }
+
+    public Userinfo getUserinfoByEmployeeId(int employeeId){
+        String sql = "select * from userinfo where employeeId=?";
+        return template.queryForObject(sql,
+        new Object[]{employeeId},
+        new UserinfoRowMapper());
+    }
+
+    public List<Userinfo> getAllUserinfo() {
+        String sql="select * from userinfo";
+        return template.query(sql,
+        new UserinfoRowMapper());
+    }
+
+    public boolean isEmployeeWithUsernameExists(String username){
+        String sql = "select count(*) from userinfo where username=?";
+        int count = template.queryForObject(sql, new Object[]{username},Integer.class);
+        return (count>0)?true:false;
     }
 
 }

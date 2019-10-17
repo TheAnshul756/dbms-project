@@ -87,4 +87,10 @@ public class StudentDao{
         new StudentRowMapper());
     }
 
+    public boolean isSerialNumberPresent(String serialNumber){
+        String sql = "select count(*) from student where serialNumber=?";
+        int count = template.queryForObject(sql, new Object[]{serialNumber},Integer.class);
+        return (count>0)?true:false;
+    }
+
 }

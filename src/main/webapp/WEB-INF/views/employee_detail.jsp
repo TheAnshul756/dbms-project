@@ -24,7 +24,14 @@
           <li><a href="/classes">All Classes</a></li>
           <li><a href="/students/new">Add Student</a></li>
           <li class="selected"><a href="/employees/new">Add Employee</a></li>
-          <li><a href="/contact">Contact Us(To Do)</a></li>
+          <c:choose>
+            <c:when test="${pageContext.request.userPrincipal.name != null}">
+              <li><a href="/logout">Log Out ( ${pageContext.request.userPrincipal.name} )</a></li>
+            </c:when>
+            <c:otherwise>
+              <li><a href="/login">Log In</a></li>
+            </c:otherwise>
+          </c:choose>
         </ul>
       </div>
     </div>
@@ -44,7 +51,7 @@
                 <form:select id="id" path="gender">
                   <c:choose>
                     <c:when test="${employee.getGender()=='M'}">
-                      <option value="M" >Male</option>
+                      <option value="M" selected>Male</option>
                       <option value="F" >Female</option>
                     </c:when>
                     <c:otherwise>
@@ -85,6 +92,53 @@
             <p style="padding-top: 15px"><span>&nbsp;</span><form:input class="submit" type="submit" value="update" path="" /></p>
           </div>
         </form:form>
+        
+        <h2>Credentials</h2>
+        <c:set var = "f" value = "${0}"/>
+          <c:forEach var="info" items="${userinfo}">
+              <c:choose>
+                  <c:when test="${employee.getEmployeeId()== info.getEmployeeId()}">
+                          <c:set var = "f" value = "${1}"/>
+                      <form action="/credentials/${employee.getEmployeeId()}/edit" method="POST">
+                          <div class="form_settings">
+                              <p><span>username</span>${info.getUserName()}</p>
+                              <p><span>Role</span>
+                                <select id="id" path="" name="role">
+                                  <c:choose>
+                                    <c:when test="${info.getRole()=='ROLE_ADMIN'}">
+                                      <option value="ROLE_ADMIN" selected>ROLE_ADMIN</option>
+                                      <option value="ROLE_EMPLOYEE" >ROLE_EMPLOYEE</option>
+                                      <option value="NONE" >NONE</option>
+                                    </c:when>
+                                    <c:when test="${info.getRole()=='ROLE_EMPLOYEE'}">
+                                      <option value="ROLE_ADMIN" >ROLE_ADMIN</option>
+                                      <option value="ROLE_EMPLOYEE" selected>ROLE_EMPLOYEE</option>
+                                      <option value="NONE" >NONE</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                      <option value="ROLE_ADMIN" >ROLE_ADMIN</option>
+                                      <option value="ROLE_EMPLOYEE" >ROLE_EMPLOYEE</option>
+                                      <option value="NONE" selected>NONE</option>
+                                    </c:otherwise>
+                                  </c:choose>
+                                </select>
+                              </p>
+                              <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" value="update" path="" /></p>
+                          </div>
+                      </form>                        
+                  </c:when>
+              </c:choose>
+          </c:forEach>   
+          <c:choose>
+              <c:when test="${ f==0 }">
+                <div class="form_settings">
+                    <p style="padding-top: 15px"><span></span><a href="/credentials/${employee.getEmployeeId()}/new"><button class ="submit" >Assign Credentails</button></a></p>
+                </div>
+              </c:when>
+          </c:choose>         
+          <c:set var = "f" value = "${0}"/>
+
+
         <c:choose >
             <c:when test="${employee.getDesignation()=='Teacher'}">
                     <!-- Class taught by Teacher Link -->

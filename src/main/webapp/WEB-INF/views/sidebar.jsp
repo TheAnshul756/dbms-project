@@ -20,6 +20,7 @@
       <ul>
         <li><a href="/students">All Students</a></li>
         <li><a href="/employees">All Employees</a></li>
+        <li><a href="/credentials/change">Change Password</a></li>
       </ul>
     </div>
     <div class="sidebar_base"></div>

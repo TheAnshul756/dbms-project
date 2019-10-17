@@ -24,7 +24,14 @@
           <li><a href="/classes">All Classes</a></li>
           <li class="selected"><a href="/students/new">Add Student</a></li>
           <li><a href="/employees/new">Add Employee</a></li>
-          <li><a href="/contact">Contact Us(To Do)</a></li>
+          <c:choose>
+            <c:when test="${pageContext.request.userPrincipal.name != null}">
+              <li><a href="/logout">Log Out ( ${pageContext.request.userPrincipal.name} )</a></li>
+            </c:when>
+            <c:otherwise>
+              <li><a href="/login">Log In</a></li>
+            </c:otherwise>
+          </c:choose>
         </ul>
       </div>
     </div>

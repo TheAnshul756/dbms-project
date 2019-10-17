@@ -6,7 +6,7 @@
 <html>
 
 <head>
-  <title>All Employees</title>
+  <title>Register User</title>
   <meta name="description" content="website description" />
   <meta name="keywords" content="website keywords, website keywords" />
   <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
@@ -20,10 +20,10 @@
       <div id="menubar">
         <ul id="menu">
           <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
-          <li class="selected"><a href="/">Home</a></li>
+          <li><a href="/">Home</a></li>
           <li><a href="/classes">All Classes</a></li>
           <li><a href="/students/new">Add Student</a></li>
-          <li><a href="/employees/new">Add Employee</a></li>
+          <li class="selected"><a href="/employees/new">Add Employee</a></li>
           <c:choose>
             <c:when test="${pageContext.request.userPrincipal.name != null}">
               <li><a href="/logout">Log Out ( ${pageContext.request.userPrincipal.name} )</a></li>
@@ -39,26 +39,20 @@
     <div id="site_content">
       <jsp:include page="sidebar.jsp"/>
       <div id="content">
-        <!-- insert the page content here -->
-        <h1>All Employees</h1>
-        <table style="width:100%; border-spacing:0;">
-            <tr>
-                <th>S.No.</th>
-                <th>Employee Id</th>
-                <th>Name</th>
-                <th>Designation</th>
-            </tr>
-            <c:forEach varStatus = "i" var="emp" items="${employees}">
-                <tr>
-                    <td>${i.index+1}</td>
-                    <td>${emp.getEmployeeId()}</td>
-                    <td><a href="/employees/${emp.getEmployeeId()}">${emp.getFname()} &nbsp;${emp.getLname()}</a></td>
-                    <td>${emp.getDesignation()}</td>
-                </tr>
-            </c:forEach>
-        </table>
+          <!-- insert the page content here -->
+          <h1>Change Password</h1>
+          <p>${msg}</p>
+          <form action="/credentials/${pageContext.request.userPrincipal.name}/change" method="POST">
+              <div class="form_settings">
+                  <p><span>Old Password</span><input type="text" name="oldPassword" path="" value="" /></p>
+                  <p><span>New Password</span><input type="text" name="newPassword" path="" value="" /></p>
+                  <p><span>Confirm Password</span><input type="text" name="confirmPassword" path="" value="" /></p>
+                  <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" value="Submit" path="" /></p>
+              </div>
+          </form>                        
       </div>
     </div>
     <jsp:include page="footer.jsp"/>
+  </div>
 </body>
 </html>

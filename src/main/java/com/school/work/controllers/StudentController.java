@@ -1,15 +1,15 @@
 package com.school.work.controllers;
 
-import com.school.work.models.Student;
-import com.school.work.dao.StudentDao;
 import com.school.work.dao.ClassDao;
+import com.school.work.dao.StudentDao;
+import com.school.work.models.Student;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -65,6 +65,12 @@ public class StudentController{
 
     @PostMapping("/students/search")
     public String student_info(@RequestParam String serialNumber, Model m){
+        if(!stuDao.isSerialNumberPresent(serialNumber))
+        {
+            String msg = "Serial Number does not exit!!!";
+            m.addAttribute("msg", msg);
+            return "error_page";
+        }
         return "redirect:/students/"+serialNumber;
     }
 

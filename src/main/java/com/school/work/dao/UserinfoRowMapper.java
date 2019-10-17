@@ -15,6 +15,7 @@ public class UserinfoRowMapper implements RowMapper<Userinfo>{
         e.setUserName(rs.getString("username"));
         e.setPassword(rs.getString("password"));
         e.setEmployeeId(rs.getInt("employeeId"));
+        e.setRole(rs.getString("role"));
         return e;
     }
 }

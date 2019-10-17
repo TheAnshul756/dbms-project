@@ -10,7 +10,6 @@ import java.util.List;
 import com.school.work.models.Employee;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -76,6 +75,12 @@ public class EmployeeDao{
         String sql="select * from employee";
         return template.query(sql,
         new EmployeeRowMapper());
+    }
+
+    public boolean isEmployeeIdPresent(String employeeId){
+        String sql = "select count(*) from employee where employeeId=?";
+        int count = template.queryForObject(sql, new Object[]{employeeId},Integer.class);
+        return (count>0)?true:false;
     }
 
 }
